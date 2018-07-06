@@ -28,10 +28,14 @@ import (
 func TestServer(t *testing.T) {
 	utils.AccessKey = "testing"
 	database.InitDB()
-	Start(8080)
+	srv := Start(8080)
+	srv.Close()
 }
 
 func TestRouter(t *testing.T) {
+	utils.AccessKey = "testing"
+	database.InitDB()
+	srv := Start(8080)
 	r,err := http.PostForm("http://127.0.0.1:8080/api", url.Values{"access_token":{"testing"},})
 	if err != nil {
 		t.Error(err)
@@ -40,4 +44,5 @@ func TestRouter(t *testing.T) {
 	if r.StatusCode != http.StatusOK {
 		t.FailNow()
 	}
+	srv.Close()
 }
