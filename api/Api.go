@@ -110,3 +110,13 @@ func HandlePardonPlayer(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 	}
 }
+
+func HandlePlayerExist(w http.ResponseWriter, r *http.Request) {
+	if utils.IsAccessTokenValid(r) {
+		name := mux.Vars(r)["player"]
+		w.WriteHeader(http.StatusOK)
+		utils.WriteJson(w, database.ExistPlayer(database.Instance, name))
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}

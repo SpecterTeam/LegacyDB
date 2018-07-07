@@ -36,6 +36,7 @@ func Start(port int) *http.Server {
 	router.HandleFunc("/api/player/ip/{player}/{ip}", api.HandlePlayerIp)
 	router.HandleFunc("/api/player/ban/{player}", api.HandleBanPlayer)
 	router.HandleFunc("/api/player/pardon/{player}", api.HandlePardonPlayer)
+	router.HandleFunc("/api/player/exist/{player}", api.HandlePlayerExist)
 
 	srv := &http.Server{
 		Handler:      router,

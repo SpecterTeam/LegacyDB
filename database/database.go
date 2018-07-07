@@ -21,6 +21,10 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
+type PlayerExistJson struct {
+	Exist bool `json:"exist"`
+}
+
 var Instance *gorm.DB
 
 func InitDB() {
@@ -69,4 +73,10 @@ func BanPlayer(db *gorm.DB, name string) {
 
 func PardonPlayer(db *gorm.DB, name string) {
 	db.Update(&Player{Player:name,Banned:0})
+}
+
+func ExistPlayer(db *gorm.DB, name string) PlayerExistJson {
+	var player []Player
+	db.Find(&player, Player{Player:name})
+	return PlayerExistJson{Exist: len(player) != 0}
 }
