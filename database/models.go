@@ -19,7 +19,7 @@ package database
 //Ip is crypted from the client.
 type Player struct {
 	Player string `gorm:"Type:TEXT;Column:player;NOT NULL;primary_key;unique" json:"player"`
-	Rank   int    `gorm:"Type:INT;Column:player;NOT NULL;DEFAULT:0" json:"rank"`
+	Rank   int    `gorm:"Type:INT;Column:rank;NOT NULL;DEFAULT:0" json:"rank"`
 	Ip     string `gorm:"Type:TEXT;Column:ip" json:"Ip"`
 	Banned int    `gorm:"Type:tinyint(1);Column:banned;NOT NULL;DEFAULT:0" json:"banned"`
 }
