@@ -34,25 +34,7 @@ func TestServer(t *testing.T) {
 }
 
 func TestRouter(t *testing.T) {	
-	r,err := http.PostForm("http://127.0.0.1:8080/api/player/create/test", url.Values{"access_token":{"testing"},})
-	if err != nil {
-		t.Error(err)
-		t.FailNow()
-	}
-	if r.StatusCode != http.StatusOK {
-		t.FailNow()
-	}
-	
-	r,err = http.PostForm("http://127.0.0.1:8080/api/players", url.Values{"access_token":{"testing"},})
-	if err != nil {
-		t.Error(err)
-		t.FailNow()
-	}
-	if r.StatusCode != http.StatusOK {
-		t.FailNow()
-	}
-
-	r,err = http.PostForm("http://127.0.0.1:8080/api", url.Values{"access_token":{"testing"},})
+	r,err := http.PostForm("http://127.0.0.1:8080/api", url.Values{"access_token":{"testing"},})
 	if err != nil {
 		t.Error(err)
 		t.FailNow()
