@@ -5,8 +5,8 @@ LegacyDB is the database server used by [Legacy's Network](https://twitter.com/L
  LegacyDB is currently under developement and every contribution is accepted as long as it's clear, clean and is original.
  
 ### Installation
-    git clone https://github.com/SpecterTeam/LegacyDB
-    cd LegacyDB/cmd/LegacyDB
+    go get github.com/SpecterTeam/LegacyDB
+    cd $HOME/go/src/github.com/SpecterTeam/LegacyDB/cmd/LegacyDB
     go build
  
  ### License
