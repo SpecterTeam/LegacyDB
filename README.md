@@ -6,7 +6,7 @@ LegacyDB is the database server used by [Legacy's Network](https://twitter.com/L
  
 ### Installation
     go get github.com/SpecterTeam/LegacyDB
-    cd $HOME/go/src/github.com/SpecterTeam/LegacyDB/cmd/LegacyDB
+    cd $HOME/go/src/github.com/SpecterTeam/LegacyDB/
     go build
  
  ### License
