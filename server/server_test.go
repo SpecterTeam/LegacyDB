@@ -14,42 +14,37 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package main
+
+package server
 
 import (
-	"flag"
-	"fmt"
-	"github.com/SpecterTeam/LegacyDB/database"
-	"os"
+	"testing"
 	"github.com/SpecterTeam/LegacyDB/utils"
-	"bufio"
-	"github.com/SpecterTeam/LegacyDB/server"
+	"github.com/SpecterTeam/LegacyDB/database"
+	"net/http"
+	"net/url"
 )
 
-func init() {
-	fmt.Println("Initializing database...")
+var srv *http.Server
+
+func TestServer(t *testing.T) {
+	utils.AccessKey = "testing"
 	database.InitDB()
-	fmt.Println("Database loaded.")
-	fmt.Println("Generating Access key...")
-	utils.AccessKey = "example-password-69-lol"
-	os.Setenv("LEGACY_DB_ACCESS_KEY", utils.AccessKey)
-	fmt.Println("Access key loaded.")
-}
+	srv = Start(8080)
 
-func main() {
-	var port int
-
-	flag.IntVar(&port, "port", 8080, "set port for the http server.")
-	flag.Parse()
-
-	srv := server.Start(port)
-
-	fmt.Println("LegacyDB has been started. Press ENTER to quit.")
-
-	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-
-	fmt.Println("Stopping the http server...")
 	srv.Close()
-	fmt.Println("Successfully shutdown LegacyDB.")
 }
+
+/* For some reasons this works on my pc but not in travis-ci.
+func TestRouter(t *testing.T) {
+	r,err := http.PostForm("http://127.0.0.1:8080/api", url.Values{"access_token":{"testing"},})
+	if err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+	if r.StatusCode != http.StatusOK {
+		t.FailNow()
+	}
+	srv.Close()
+}
+*/
