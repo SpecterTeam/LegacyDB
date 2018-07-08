@@ -22,7 +22,6 @@ import (
 	"github.com/SpecterTeam/LegacyDB/utils"
 	"github.com/SpecterTeam/LegacyDB/database"
 	"net/http"
-	"net/url"
 )
 
 var srv *http.Server
