@@ -31,13 +31,9 @@ type ApiResponse struct {
 	Status  bool    `json:"Status"`
 }
 
-func HandleAPI(w http.ResponseWriter, r *http.Request) {
-	if utils.IsAccessTokenValid(r) {
-		w.WriteHeader(http.StatusOK)
-		utils.WriteJson(w, ApiResponse{Name: "LegacyDB", Version: 1.0, Author: "Fris", Status: true})
-	} else {
-		w.WriteHeader(http.StatusUnauthorized)
-	}
+func HandleAPI(w http.ResponseWriter, _ *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	utils.WriteJson(w, ApiResponse{Name: "LegacyDB", Version: 1.0, Author: "Fris", Status: true})
 }
 
 func HandlePlayer(w http.ResponseWriter, r *http.Request) {
