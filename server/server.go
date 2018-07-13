@@ -28,6 +28,7 @@ func Start(port int) *http.Server {
 
 	router := mux.NewRouter()
 
+	router.HandleFunc("/", api.HandleAPI)
 	router.HandleFunc("/api", api.HandleAPI)
 	router.HandleFunc("/api/players", api.HandlePlayers)
 	router.HandleFunc("/api/player/{player}", api.HandlePlayer)
