@@ -37,7 +37,7 @@ func main() {
 		port int
 		accessKey string
 	)
-	flag.IntVar(&port, "port", 8080, "set port for the http server.")
+	flag.IntVar(&port, "port", 80, "set port for the http server.")
 	flag.StringVar(&accessKey, "key", "example-password-69-lol", "set the AccessKey for the server.")
 	flag.Parse()
 	
