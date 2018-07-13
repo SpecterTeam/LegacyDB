@@ -30,17 +30,20 @@ func init() {
 	fmt.Println("Initializing database...")
 	database.InitDB()
 	fmt.Println("Database loaded.")
-	fmt.Println("Generating Access key...")
-	utils.AccessKey = "example-password-69-lol"
-	os.Setenv("LEGACY_DB_ACCESS_KEY", utils.AccessKey)
-	fmt.Println("Access key loaded.")
 }
 
 func main() {
-	var port int
-
+	var (
+		port int
+		accessKey string
+	)
 	flag.IntVar(&port, "port", 8080, "set port for the http server.")
+	flag.StringVar(&accessKey, "key", "example-password-69-lol", "set the AccessKey for the server.")
 	flag.Parse()
+	
+	utils.AccessKey = accessKey
+	os.Setenv("LEGACYDB_ACCESS_KEY", utils.AccessKey)
+	fmt.Println("Access key loaded.")
 
 	srv := server.Start(port)
 
