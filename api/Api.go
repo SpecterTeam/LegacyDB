@@ -116,3 +116,77 @@ func HandlePlayerExist(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 	}
 }
+
+func HandleUpdatePracticeStats(w http.ResponseWriter, r *http.Request) {
+	if utils.IsAccessTokenValid(r) {
+		name := mux.Vars(r)["player"]
+		w.WriteHeader(http.StatusOK)
+		stats := map[string]int{}
+		for k,v := range r.PostForm {
+			value, _ := strconv.Atoi(v[0])
+			switch k {
+			//Elo
+			case "buhcelo":
+				stats["BUHCElo"] = value
+				break
+			case "nodebuffelo":
+				stats["NoDebuffElo"] = value
+				break
+			case "classicelo":
+				stats["ClassicElo"] = value
+				break
+			case "sumoelo":
+				stats["SumoElo"] = value
+				break
+				//Wins
+			case "buhcwins":
+				stats["BUHCWins"] = value
+				break
+			case "nodebuffwins":
+				stats["NoDebuffWins"] = value
+				break
+			case "classicwins":
+				stats["ClassicWins"] = value
+				break
+			case "sumowins":
+				stats["SumoWins"] = value
+				break
+				//Loses
+			case "buhcloses":
+				stats["BUHCLoses"] = value
+				break
+			case "nodebuffloses":
+				stats["NoDebuffLoses"] = value
+				break
+			case "classicloses":
+				stats["ClassicLoses"] = value
+				break
+			case "sumoloses":
+				stats["SumoLoses"] = value
+				break
+			}
+		}
+		database.UpdatePracticeStats(database.Instance, name, stats)
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
+func HandlePracticeStats(w http.ResponseWriter, r *http.Request) {
+	if utils.IsAccessTokenValid(r) {
+		w.WriteHeader(http.StatusOK)
+		utils.WriteJson(w, database.GetAllPracticeStats(database.Instance))
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
+func HandlePracticeStatsPlayer(w http.ResponseWriter, r *http.Request) {
+	if utils.IsAccessTokenValid(r) {
+		name := mux.Vars(r)["player"]
+		w.WriteHeader(http.StatusOK)
+		utils.WriteJson(w, database.GetPracticeStats(database.Instance, name))
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}

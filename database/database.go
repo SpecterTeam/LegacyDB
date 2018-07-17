@@ -56,27 +56,47 @@ func GetPlayer(db *gorm.DB, name string) Player {
 }
 
 func CreatePlayer(db *gorm.DB, name string) {
-	db.Create(Player{Player:name})
+	db.Create(&Player{Player:name})
+	db.Create(&HCFStats{Player:name})
+	db.Create(&PracticeStats{Player:name})
 }
 
 func SetPlayerRank(db *gorm.DB, name string, rank int) {
-	db.Update(&Player{Player:name,Rank:rank})
+	db.Model(&Player{Player:name}).Update("Rank", rank)
 }
 
 func SetPlayerIp(db *gorm.DB, name string, ip string) {
-	db.Update(&Player{Player:name,Ip:ip})
+	db.Model(&Player{Player:name}).Update("Ip", ip)
 }
 
 func BanPlayer(db *gorm.DB, name string) {
-	db.Update(&Player{Player:name,Banned:1})
+	db.Model(&Player{Player:name}).Update("Banned", 1)
 }
 
 func PardonPlayer(db *gorm.DB, name string) {
-	db.Update(&Player{Player:name,Banned:0})
+	db.Model(&Player{Player:name}).Update("Banned", 0)
 }
 
 func ExistPlayer(db *gorm.DB, name string) PlayerExistJson {
 	var player []Player
 	db.Find(&player, Player{Player:name})
 	return PlayerExistJson{Exist: len(player) != 0}
+}
+
+func UpdatePracticeStats(db *gorm.DB, name string, stats map[string]int) {
+	for key,value := range stats {
+		db.Model(&PracticeStats{Player:name}).Update(key, value)
+	}
+}
+
+func GetPracticeStats(db *gorm.DB, name string) PracticeStats {
+	var stats PracticeStats
+	db.Find(&stats, PracticeStats{Player:name})
+	return stats
+}
+
+func GetAllPracticeStats(db *gorm.DB) []PracticeStats {
+	var stats []PracticeStats
+	db.Find(&stats)
+	return stats
 }
