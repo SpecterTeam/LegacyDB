@@ -20,7 +20,6 @@ import (
 	"net/http"
 	"github.com/gorilla/mux"
 	"time"
-	"fmt"
 	"github.com/SpecterTeam/LegacyDB/api"
 )
 
