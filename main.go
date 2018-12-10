@@ -33,11 +33,7 @@ func init() {
 }
 
 func main() {
-	var (
-		port int
-		accessKey string
-	)
-	flag.IntVar(&port, "port", 8080, "set port for the http server.")
+	var accessKey string
 	flag.StringVar(&accessKey, "key", "example-password-69-lol", "set the AccessKey for the server.")
 	flag.Parse()
 	
@@ -45,7 +41,7 @@ func main() {
 	os.Setenv("LEGACYDB_ACCESS_KEY", utils.AccessKey)
 	fmt.Println("Access key loaded.")
 
-	srv := server.Start(port)
+	srv := server.Start(os.Getenv("PORT"))
 
 	fmt.Println("LegacyDB has been started. Press ENTER to quit.")
 
