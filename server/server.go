@@ -24,7 +24,7 @@ import (
 	"github.com/SpecterTeam/LegacyDB/api"
 )
 
-func Start(port int) *http.Server {
+func Start(port string) *http.Server {
 
 	router := mux.NewRouter()
 
@@ -44,7 +44,7 @@ func Start(port int) *http.Server {
 
 	srv := &http.Server{
 		Handler:      router,
-		Addr:         "127.0.0.1:" + fmt.Sprint(port),
+		Addr:         "127.0.0.1:" + port,
 		WriteTimeout: 10 * time.Second,
 		ReadTimeout:  10 * time.Second,
 	}
